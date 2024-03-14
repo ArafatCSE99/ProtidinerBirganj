@@ -29,3 +29,19 @@ function checkCredential()
 
     }
 }
+
+
+
+function GetBasicInfo()
+{
+    $.ajax({
+        type: "POST",
+        url: "API/getBasicInfo.php",
+        data: '',
+        cache: false,
+        success: function(html) {
+           $('.content-wrapper').html(html)
+        }
+        });
+}
+
