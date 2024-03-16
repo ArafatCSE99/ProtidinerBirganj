@@ -45,3 +45,27 @@ function GetBasicInfo()
         });
 }
 
+
+function SaveBasicInfo()
+{
+    var npn=$('#npn').val();
+    var wa=$('#wa').val();
+    var ea=$('#ea').val();
+    var a=$('#a').val();
+    var mn=$('#mn').val();
+    var fb=$('#fb').val();
+    var yt=$('#yt').val();
+
+    var dataString='npn='+npn+'&wa='+wa+'&ea='+ea+'&a='+a+'&mn='+mn+'&fb='+fb+'&yt='+yt;
+
+    $.ajax({
+        type: "POST",
+        url: "API/saveBasicInfo.php",
+        data: dataString,
+        cache: false,
+        success: function(html) {
+           alert(html);
+        }
+    });
+   
+}
