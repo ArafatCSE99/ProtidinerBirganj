@@ -26,7 +26,7 @@ $resultc = $conn->query($sqlc);
 
 if ($resultc->num_rows > 0) {
 
-    $sql = "UPDATE basic_info set name='$npn',web_address='$wa',email_address='$ea',address='$a',facebook='$fb',youtube='$yt' ";
+    $sql = "UPDATE basic_info set name='$npn',web_address='$wa',email_address='$ea',address='$a',facebook='$fb',youtube='$yt',mobile_no='$mn' ";
 
 }
 else{

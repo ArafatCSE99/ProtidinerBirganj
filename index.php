@@ -1,3 +1,9 @@
+<?php
+
+include "connection.php";
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +90,23 @@
         <ul class="nav navbar-nav main_nav">
           <li class="active"><a href="index.html"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
          
-          <li><a href="#">Technology</a></li>
+          <?php
+
+$sql = "SELECT * FROM category";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    
+     echo "<li><a>".$row["name"]."</a></li>";
+
+  }
+} 
+
+          ?>
+
+          
           
         </ul>
       </div>
@@ -95,15 +117,22 @@
       <div class="col-lg-12 col-md-12">
         <div class="latest_newsarea"> <span>Latest News</span>
           <ul id="ticker01" class="news_sticker">
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My First News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Second News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Third News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Four News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Five News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Six News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Seven News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail3.jpg" alt="">My Eight News Item</a></li>
-            <li><a href="#"><img src="images/news_thumbnail2.jpg" alt="">My Nine News Item</a></li>
+<?php
+$sql = "SELECT * FROM news order by id desc";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     echo "<li><a onclick='GetNewsDetails($id)'><img src='$image_url' alt=''>".$row['headline']."</a></li>";
+  }
+} 
+?>
+
+            
+            
           </ul>
           <div class="social_area">
             <ul class="social_nav">
@@ -157,31 +186,29 @@
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
-              <li>
-                <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li>
+             
+<?php
+$sql = "SELECT * FROM news order by id desc";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+    
+    echo "<li>
+     <div class='media'> <a href='#' class='media-left'> <img alt='' src='$image_url'> </a>
+       <div class='media-body'> <a href='#' class='catg_title'>$headline</a> </div>
+     </div>
+   </li>";
+     
+  }
+} 
+?>
+
+             
+              
             </ul>
             <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
           </div>

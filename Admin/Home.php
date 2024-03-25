@@ -13,6 +13,10 @@
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="./vendors/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="./vendors/chartist/chartist.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -20,6 +24,15 @@
     <link rel="stylesheet" href="./css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="./images/favicon.png" />
+
+    <style>
+    .preview-image {
+      max-width: 300px;
+      max-height: 300px;
+      margin-top: 10px;
+    }
+  </style>
+
   </head>
   <body>
     <div class="container-scroller">
@@ -95,8 +108,8 @@
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" onclick="GetBasicInfo()" style="cursor:pointer;" >Basic Info</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Category</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Sub Category</a></li>
+                  <li class="nav-item"> <a class="nav-link" onclick="GetCategory()" style="cursor:pointer;">Category</a></li>
+                 <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Sub Category</a></li> -->
                 </ul>
               </div>
             </li>
@@ -110,7 +123,7 @@
               </a>
               <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Create News </a></li>
+                  <li class="nav-item"> <a class="nav-link" onclick="GetNews()" style="cursor:pointer;"> Create News </a></li>
                 </ul>
               </div>
             </li>
@@ -408,6 +421,7 @@
     <!-- plugins:js -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+    <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js" ></script>
     <script src="vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
