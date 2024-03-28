@@ -65,6 +65,7 @@ if ($conn->connect_error) {
                           <th> # </th>
                           <th> Head Line </th>
                           <th> News </th> 
+                          <th> Reporter </th>
                           <th> Image </th> 
                           <th> Category </th>
                           <th> Active Status </th> 
@@ -73,7 +74,7 @@ if ($conn->connect_error) {
                       </thead>
                       <tbody>
 <?php
-$sql = "SELECT * FROM News";
+$sql = "SELECT * FROM News order by id desc";
 $result = $conn->query($sql);
 $slno=0;
 if ($result->num_rows > 0) {
@@ -84,6 +85,7 @@ if ($result->num_rows > 0) {
      $headline=$row["headline"];
      $news=$row["news"];
      $category_id=$row["category_id"];
+     $reporter=$row["reporter"];
      $image_url="API/".$row["image_url"];
      
      $is_active="Inactive";
@@ -106,6 +108,7 @@ if ($resultc->num_rows > 0) {
      echo "<td>".$slno."</td>";
      echo "<td class='headline'>".$headline."</td>";
      echo "<td class='news'>".$news."</td>";
+     echo "<td class='reporter'>".$reporter."</td>";
      echo "<td class='image_url'><img src='$image_url'  width='100px;'  height='100px;' style='border-radius:0% !important;' ></td>";
      echo "<td class='category_name'>".$category_name."</td>";
      echo "<td class='is_active'>".$is_active."</td>";
@@ -139,6 +142,11 @@ if ($resultc->num_rows > 0) {
                       <div class="form-group">
                         <label for="News">News</label>
                         <textarea class="form-control" rows="8" id="news" placeholder="News Details" style="resize: both;"></textarea>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="reporter">Reporter</label>
+                        <input type="text" class="form-control" id="reporter" placeholder="News Reporter Name" >
                       </div>
 
                       <div class="container mt-5">

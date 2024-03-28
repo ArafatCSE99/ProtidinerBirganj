@@ -2,7 +2,44 @@
 
 include "connection.php";
 
-?>
+           
+$sql = "SELECT * FROM basic_info";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    
+     $name=$row["name"];
+     $web_address=$row["web_address"];
+     $email_address=$row["email_address"];
+     $address=$row["address"];
+     $mobile_no=$row["mobile_no"];
+
+  }
+} 
+
+if(isset($_GET["active_category"])){
+  $active_category_id=$_GET["active_category"];
+  $sql = "SELECT * FROM category where id=$active_category_id";
+  echo "<script>document.location.hash = 'single_post_content';</script>";
+}
+else
+{
+  $sql = "SELECT * FROM category order by id asc limit 1";
+}
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $active_category_id=$row["id"];
+     $active_category_name=$row["name"];
+  }
+} 
+
+?>  
+
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +95,7 @@ include "connection.php";
         <div class="header_top">
           <div class="header_top_left">
             <ul class="top_nav">
-              <li><a href="index.html">Home</a></li>
+              <li><a href="index.php">Home</a></li>
               <li><a href="#">Abouts</a></li>
               <li><a href="#">Contact</a></li>
             </ul>
@@ -70,7 +107,7 @@ include "connection.php";
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="header_bottom">
-          <div class="logo_area" style="float: left; width: 200px !important;"><a href="index.html" class="logo"><img src="images/logo.PNG" alt="" height="100px;" width="150px;"></a>    
+          <div class="logo_area" style="float: left; width: 200px !important;"><a href="index.php" class="logo"><img src="images/logo.PNG" alt="" height="100px;" width="150px;"></a>    
           </div>
           <div class="header" style="float: left;">
             <h1><b>প্রতিদিনের বীরগঞ্জ</b></h1>
@@ -88,7 +125,7 @@ include "connection.php";
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav main_nav">
-          <li class="active"><a href="index.html"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+          <li class="active"><a href="index.php"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
          
           <?php
 
@@ -98,8 +135,8 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    
-     echo "<li><a>".$row["name"]."</a></li>";
+     $category_id=$row["id"];
+     echo "<li><a href='index.php?active_category=$category_id'>".$row["name"]."</a></li>";
 
   }
 } 
@@ -118,7 +155,7 @@ if ($result->num_rows > 0) {
         <div class="latest_newsarea"> <span>Latest News</span>
           <ul id="ticker01" class="news_sticker">
 <?php
-$sql = "SELECT * FROM news order by id desc";
+$sql = "SELECT * FROM news where is_active=1 order by id desc limit 0,10";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -150,34 +187,40 @@ if ($result->num_rows > 0) {
       </div>
     </div>
   </section>
+  
+  <section id="contentDiv">
+  </section>
   <section id="sliderSection">
-    <div class="row">
-      <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="row" >
+      <div class="col-lg-8 col-md-8 col-sm-8" >
         <div class="slick_slider">
-          <div class="single_iteam"> <a href="pages/single_page.html"> <img src="images/slider_img4.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="pages/single_page.html"> <img src="images/slider_img2.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="pages/single_page.html"> <img src="images/slider_img3.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
-          <div class="single_iteam"> <a href="pages/single_page.html"> <img src="images/slider_img1.jpg" alt=""></a>
-            <div class="slider_article">
-              <h2><a class="slider_tittle" href="pages/single_page.html">Fusce eu nulla semper porttitor felis sit amet</a></h2>
-              <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a pharetra urna. Morbi dui...</p>
-            </div>
-          </div>
+        
+        <?php
+$sql = "SELECT * FROM news where is_active=1 order by id desc limit 0,10";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+     $news=$row['news'];
+     $short_news=substr($news, 0, 1000)." . . .";
+  
+echo "<div class='single_iteam'> <a onclick='GetNewsDetails($id)'> <img src='$image_url' style='' alt=''></a>
+     <div class='slider_article' >
+       <a class='slider_tittle' href='#' style='text-align: justify !important; text-justify: inter-word;  color:#000; padding:0px; font-size:20px; height:36px;'><b>$headline</b></a>
+       <br><p>$short_news</p>
+     </div>
+   </div>";
+     
+  }
+} 
+?>
+
+          
+
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
@@ -188,18 +231,19 @@ if ($result->num_rows > 0) {
             <ul class="latest_postnav">
              
 <?php
-$sql = "SELECT * FROM news order by id desc";
+$sql = "SELECT * FROM news where is_active=1 order by id desc limit 0,6";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
      $headline=$row['headline'];
     
     echo "<li>
-     <div class='media'> <a href='#' class='media-left'> <img alt='' src='$image_url'> </a>
-       <div class='media-body'> <a href='#' class='catg_title'>$headline</a> </div>
+     <div class='media'> <a onclick='GetNewsDetails($id)' class='media-left'> <img alt='' src='$image_url'> </a>
+       <div class='media-body'> <a onclick='GetNewsDetails($id)' class='catg_title'>$headline</a> </div>
      </div>
    </li>";
      
@@ -220,217 +264,227 @@ if ($result->num_rows > 0) {
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
-          <div class="single_post_content">
-            <h2><span>Business</span></h2>
+          
+        <div class="single_post_content" id="single_post_content">
+            <h2><span><?php echo $active_category_name; ?></span></h2>
+           
+           
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
-                <li>
-                  <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="images/featured_img1.jpg"> <span class="overlay"></span> </a>
-                    <figcaption> <a href="pages/single_page.html">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
+                
+              <?php
+              // Active Category Top News 
+$sql = "SELECT * FROM news where category_id=$active_category_id and is_active=1 order by id desc limit 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+     $news=$row['news'];
+     $short_news=substr($news, 0, 1000)." . . .";
+
+            echo "<li>
+                  <figure class='bsbig_fig'> <a onclick='GetNewsDetails($id)' class='featured_img'> <img alt='' src='$image_url' width='425px' height='283px'> <span class='overlay'></span> </a>
+                    <figcaption> <a onclick='GetNewsDetails($id)'>$headline</a> </figcaption>
+                    <p>$short_news</p>
                   </figure>
-                </li>
+                </li>";
+
+  }
+} 
+            ?>
               </ul>
             </div>
+
             <div class="single_post_content_right">
               <ul class="spost_nav">
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                  </div>
-                </li>
+              
+              <?php
+              // Active Category Other Top News 
+$sql = "SELECT * FROM news where category_id=$active_category_id and is_active=1 order by id desc limit 1,5";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+            echo "<li>
+            <div class='media wow fadeInDown'> <a onclick='GetNewsDetails($id)' class='media-left'> <img alt='' src='$image_url' width='72px' height='72px'> </a>
+              <div class='media-body'> <a onclick='GetNewsDetails($id)' class='catg_title'>$headline</a> </div>
+            </div>
+          </li>";
+  }
+} 
+            ?>
+
+               
+
               </ul>
             </div>
           </div>
-          <div class="fashion_technology_area">
-            <div class="fashion">
+
+         
+          <?php 
+      $counter=1;
+      $sqlc = "SELECT *from  category where id in (select category_id from news where is_active=1) limit 0,10";
+      $resultc = $conn->query($sqlc);
+      
+      if ($resultc->num_rows > 0) {
+        // output data of each row
+        while($rowc = $resultc->fetch_assoc()) {  
+          $category_id=$rowc["id"];
+          $category_name=$rowc["name"];
+
+          ?>
+
+       <?php if($counter%2!=0){ ?>
+
+         <div class="fashion_technology_area"> <!-- Start 01 -->
+            
+            <div class="fashion"> <!-- Fasion Start -->
               <div class="single_post_content">
-                <h2><span>Fashion</span></h2>
+                <h2><span><?php echo $category_name; ?></span></h2>
                 <ul class="business_catgnav wow fadeInDown">
-                  <li>
-                    <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="images/featured_img2.jpg"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="pages/single_page.html">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                    </figure>
-                  </li>
+                 
+<?php
+// Active Category Top News 
+$sql = "SELECT * FROM news where category_id=$category_id and is_active=1 order by id desc limit 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+     $news=$row['news'];
+     $short_news=substr($news, 0, 1000)." . . .";
+
+     echo  "<li>
+     <figure class='bsbig_fig'> <a onclick='GetNewsDetails($id)' class='featured_img'> <img alt='' src=' $image_url' width='425px' height='283px'> <span class='overlay'></span> </a>
+       <figcaption> <a onclick='GetNewsDetails($id)'>$headline</a> </figcaption>
+       <p>$short_news</p>
+     </figure>
+   </li>";
+
+
+  }
+} 
+            ?>
+                 
                 </ul>
                 <ul class="spost_nav">
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                    </div>
-                  </li>
+
+<?php
+// Active Category Other Top News 
+$sql = "SELECT * FROM news where category_id=$category_id and is_active=1 order by id desc limit 1,2";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+
+    echo "<li>
+     <div class='media wow fadeInDown'> <a onclick='GetNewsDetails($id)'' class='media-left'> <img alt='' src='$image_url'  width='72px' height='72px'> </a>
+       <div class='media-body'> <a onclick='GetNewsDetails($id)' class='catg_title'> $headline</a> </div>
+     </div>
+   </li>";
+            
+  }
+} 
+?>
+
+                 
+                  
                 </ul>
               </div>
-            </div>
-            <div class="technology">
+            </div> <!-- Fasion End -->
+
+            <?php } else { ?>
+
+            <div class="technology"> <!-- Technology Start -->
               <div class="single_post_content">
-                <h2><span>Technology</span></h2>
+                <h2><span><?php echo $category_name; ?></span></h2>
                 <ul class="business_catgnav">
-                  <li>
-                    <figure class="bsbig_fig wow fadeInDown"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="images/featured_img3.jpg"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="pages/single_page.html">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                      <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                    </figure>
-                  </li>
+                <?php
+// Active Category Top News 
+$sql = "SELECT * FROM news where category_id=$category_id and is_active=1 order by id desc limit 1";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+     $news=$row['news'];
+     $short_news=substr($news, 0, 1000)." . . .";
+
+     echo  "<li>
+     <figure class='bsbig_fig wow fadeInDown'> <a onclick='GetNewsDetails($id)' class='featured_img'> <img alt='' src=' $image_url' width='425px' height='283px'> <span class='overlay'></span> </a>
+       <figcaption> <a onclick='GetNewsDetails($id)'>$headline</a> </figcaption>
+       <p>$short_news</p>
+     </figure>
+   </li>";
+
+
+  }
+} 
+            ?>           
+                 
+
                 </ul>
                 <ul class="spost_nav">
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                    </div>
-                  </li>
+<?php
+// Active Category Other Top News 
+$sql = "SELECT * FROM news where category_id=$category_id and is_active=1 order by id desc limit 1,2";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $id=$row["id"];
+     $image_url="Admin/API/".$row["image_url"];
+     $headline=$row['headline'];
+
+    echo "<li>
+    <div class='media wow fadeInDown'> <a onclick='GetNewsDetails($id)' class='media-left'> <img alt='' src='$image_url' width='72px' height='72px'> </a>
+      <div class='media-body'> <a onclick='GetNewsDetails($id)' class='catg_title'> $headline</a> </div>
+    </div>
+  </li>";
+            
+  }
+} 
+?>   
+                  
                 </ul>
               </div>
-            </div>
-          </div>
-          <div class="single_post_content">
-            <h2><span>Photography</span></h2>
-            <ul class="photograph_nav  wow fadeInDown">
-              <li>
-                <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="images/photograph_img2.jpg" title="Photography Ttile 1"> <img src="images/photograph_img2.jpg" alt=""/></a> </figure>
-                </div>
-              </li>
-              <li>
-                <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="images/photograph_img3.jpg" title="Photography Ttile 2"> <img src="images/photograph_img3.jpg" alt=""/> </a> </figure>
-                </div>
-              </li>
-              <li>
-                <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="images/photograph_img4.jpg" title="Photography Ttile 3"> <img src="images/photograph_img4.jpg" alt=""/> </a> </figure>
-                </div>
-              </li>
-              <li>
-                <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="images/photograph_img4.jpg" title="Photography Ttile 4"> <img src="images/photograph_img4.jpg" alt=""/> </a> </figure>
-                </div>
-              </li>
-              <li>
-                <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="images/photograph_img2.jpg" title="Photography Ttile 5"> <img src="images/photograph_img2.jpg" alt=""/> </a> </figure>
-                </div>
-              </li>
-              <li>
-                <div class="photo_grid">
-                  <figure class="effect-layla"> <a class="fancybox-buttons" data-fancybox-group="button" href="images/photograph_img3.jpg" title="Photography Ttile 6"> <img src="images/photograph_img3.jpg" alt=""/> </a> </figure>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="single_post_content">
-            <h2><span>Games</span></h2>
-            <div class="single_post_content_left">
-              <ul class="business_catgnav">
-                <li>
-                  <figure class="bsbig_fig  wow fadeInDown"> <a class="featured_img" href="pages/single_page.html"> <img src="images/featured_img1.jpg" alt=""> <span class="overlay"></span> </a>
-                    <figcaption> <a href="pages/single_page.html">Proin rhoncus consequat nisl eu ornare mauris</a> </figcaption>
-                    <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus, egestas imperdiet nulla nisl quis mauris. Suspendisse a phare...</p>
-                  </figure>
-                </li>
-              </ul>
-            </div>
-            <div class="single_post_content_right">
-              <ul class="spost_nav">
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                    <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+            </div> <!-- Technology End -->
+
+          </div> <!-- End 01 -->
+
+          <?php } ?>
+
+          <?php $counter++; } }  if($counter%2==0){ echo "</div>"; }  ?>
+          
+          
         </div>
       </div>
+          
       <div class="col-lg-4 col-md-4 col-sm-4">
         <aside class="right_content">
-          <div class="single_sidebar">
-            <h2><span>Popular Post</span></h2>
-            <ul class="spost_nav">
-              <li>
-                <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                </div>
-              </li>
-              <li>
-                <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                  <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="single_sidebar">
+          
+          <div class="single_sidebar" style="margin-top:300px;">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
               <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>
@@ -439,66 +493,37 @@ if ($result->num_rows > 0) {
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="category">
                 <ul>
-                  <li class="cat-item"><a href="#">Sports</a></li>
-                  <li class="cat-item"><a href="#">Fashion</a></li>
-                  <li class="cat-item"><a href="#">Business</a></li>
-                  <li class="cat-item"><a href="#">Technology</a></li>
-                  <li class="cat-item"><a href="#">Games</a></li>
-                  <li class="cat-item"><a href="#">Life &amp; Style</a></li>
-                  <li class="cat-item"><a href="#">Photography</a></li>
+<?php             
+$sql = "SELECT * FROM category";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+     $category_id=$row["id"];
+     echo "<li class='cat-item'><a href='index.php?active_category=$category_id'>".$row["name"]."</a></li>";
+
+  }
+} 
+?>                     
                 </ul>
               </div>
               <div role="tabpanel" class="tab-pane" id="video">
                 <div class="vide_area">
-                  <iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>
+                  <!-- <iframe width="100%" height="250" src="http://www.youtube.com/embed/h5QWbURNEpA?feature=player_detailpage" frameborder="0" allowfullscreen></iframe> -->
                 </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="comments">
-                <ul class="spost_nav">
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-                      <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-                    </div>
-                  </li>
-                </ul>
+                
               </div>
             </div>
           </div>
-          <div class="single_sidebar wow fadeInDown">
-            <h2><span>Sponsor</span></h2>
-            <a class="sideAdd" href="#"><img src="images/add_img.jpg" alt=""></a> </div>
-          <div class="single_sidebar wow fadeInDown">
-            <h2><span>Category Archive</span></h2>
-            <select class="catgArchive">
-              <option>Select Category</option>
-              <option>Life styles</option>
-              <option>Sports</option>
-              <option>Technology</option>
-              <option>Treads</option>
-            </select>
-          </div>
+          
           <div class="single_sidebar wow fadeInDown">
             <h2><span>Links</span></h2>
             <ul>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Rss Feed</a></li>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Life &amp; Style</a></li>
+              <li><a href="https://birganj.dinajpur.gov.bd/">Birganj Upazilla</a></li>
+              
             </ul>
           </div>
         </aside>
@@ -510,41 +535,76 @@ if ($result->num_rows > 0) {
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="footer_widget wow fadeInLeftBig">
-            <h2>Flickr Images</h2>
+          <h2>Top Category</h2>
+            <ul class="tag_nav">
+
+          <?php
+
+$sql = "SELECT * FROM category limit 0,5";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    
+     echo "<li><a>".$row["name"]."</a></li>";
+
+  }
+} 
+
+          ?>
+        </ul>
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="footer_widget wow fadeInDown">
-            <h2>Tag</h2>
+            <h2>News Tag</h2>
             <ul class="tag_nav">
-              <li><a href="#">Games</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Business</a></li>
-              <li><a href="#">Life &amp; Style</a></li>
-              <li><a href="#">Technology</a></li>
-              <li><a href="#">Photo</a></li>
-              <li><a href="#">Slider</a></li>
+
+
+<?php
+
+$sql = "SELECT * FROM category limit 5,10";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    
+     echo "<li><a>".$row["name"]."</a></li>";
+
+  }
+} 
+
+          ?>
+             
+             
             </ul>
           </div>
         </div>
+       
         <div class="col-lg-4 col-md-4 col-sm-4">
           <div class="footer_widget wow fadeInRightBig">
             <h2>Contact</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <p>
+            <?php
+             echo $name;
+            ?>
+            </p> 
             <address>
-            Perfect News,1238 S . 123 St.Suite 25 Town City 3333,USA Phone: 123-326-789 Fax: 123-546-567
+            Mobile No: <?php echo $mobile_no; ?>,<br> Email: <?php echo $email_address; ?>,<br> Web Address: <?php echo $web_address; ?> 
             </address>
           </div>
         </div>
       </div>
     </div>
     <div class="footer_bottom">
-      <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
-      <p class="developer">Developed By Wpfreeware</p>
+      <p class="copyright">Copyright &copy; 2024 <a href="index.php">Protidiner Birganj</a></p>
+      <p class="developer">Developed By Mkrow Services</p>
     </div>
   </footer>
 </div>
+<script src="assets/js/script.js"></script> 
 <script src="assets/js/jquery.min.js"></script> 
 <script src="assets/js/wow.min.js"></script> 
 <script src="assets/js/bootstrap.min.js"></script> 

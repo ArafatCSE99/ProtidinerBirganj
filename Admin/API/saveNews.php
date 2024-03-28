@@ -4,6 +4,7 @@
     $headline=$_POST['headline'];
     $news=$_POST['news'];
     $category_id=$_POST['category_id'];
+    $reporter=$_POST['reporter'];
     $is_active=$_POST['is_active'];
     $image_url=$_POST['image_url'];
 
@@ -25,12 +26,12 @@ $resultc = $conn->query($sqlc);
 
 if ($resultc->num_rows > 0) {
 
-    $sql = "UPDATE news set headline='$headline',news='$news',category_id='$category_id',is_active='$is_active',image_url='$image_url' where id=$id ";
+    $sql = "UPDATE news set headline='$headline',news='$news',category_id='$category_id',is_active='$is_active',image_url='$image_url',reporter='$reporter' where id=$id ";
 
 }
 else{
-    $sql = "INSERT INTO news (`category_id`, `headline`, `news`, `image_url`, `is_active`)
-    VALUES ('$category_id','$headline','$news','$image_url', '$is_active')";
+    $sql = "INSERT INTO news (`category_id`, `headline`, `news`, `image_url`, `is_active`,reporter)
+    VALUES ('$category_id','$headline','$news','$image_url', '$is_active','$reporter')";
 }
 
 

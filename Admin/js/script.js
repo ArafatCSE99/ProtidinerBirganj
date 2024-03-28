@@ -174,6 +174,7 @@ function SaveNews(image_url)
     var headline=$('#headline').val();
     var news=$('#news').val();
     var category_id=$('#category_id').val();
+    var reporter=$('#reporter').val();
     var is_active=$('#isactive').is(":checked");
     if(is_active)
     {
@@ -182,7 +183,7 @@ function SaveNews(image_url)
     else{
         is_active=0;
     }
-    var dataString='headline='+headline+'&is_active='+is_active+'&id='+NewsId+"&news="+news+"&category_id="+category_id+"&image_url="+image_url;
+    var dataString='headline='+headline+'&is_active='+is_active+'&id='+NewsId+"&news="+news+"&category_id="+category_id+"&image_url="+image_url+"&reporter="+reporter;
 
     $.ajax({
         type: "POST",
@@ -203,11 +204,13 @@ function EditNews(id,e)
     var row = $(e).closest('tr');
     var headline=row.find('.headline').text();
     var news=row.find('.news').text();
+    var reporter=row.find('.reporter').text();
     var category_name=row.find('.category_name').text();
     var is_active=row.find('.is_active').text();
 
     $('#headline').val(headline);
     $('#news').val(news);
+    $('#reporter').val(reporter);
     if(is_active=="Inactive"){
        $( "#isactive" ).prop( "checked", false );
     }
@@ -249,15 +252,3 @@ function saveImage(){
     });
 }
 
-function GetNewsDetails(id)
-{
-    $.ajax({
-        type: "POST",
-        url: "API/getNewsDetails.php",
-        data: '',
-        cache: false,
-        success: function(html) {
-           $('.content-wrapper').html(html);         
-        }
-        });
-}
