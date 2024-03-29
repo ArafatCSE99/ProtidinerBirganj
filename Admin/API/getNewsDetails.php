@@ -4,6 +4,10 @@ include "../../connection.php";
 
 $id=$_POST["id"];
 
+$sql = "UPDATE news SET view_count=view_count+1 WHERE id=$id";
+$conn->query($sql);
+
+
 $sql = "SELECT a.*,b.name as category_name FROM news a,category b where a.category_id=b.id and a.id=$id";
 $result = $conn->query($sql);
 
@@ -42,11 +46,9 @@ if ($result->num_rows > 0) {
             </div>
             <div class="social_link">
               <ul class="sociallink_nav">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost/protidinerbirganj/news.php?id="+$id><i class="fa fa-facebook"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                <li><a onclick="PrintNews()"><i class="fa fa-print"></i></a></li>
               </ul>
             </div>
             <div class="related_post">

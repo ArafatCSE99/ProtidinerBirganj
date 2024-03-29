@@ -16,3 +16,12 @@ function GetNewsDetails(id)
         }
         });
 }
+
+function PrintNews()
+{
+        var contentToPrint = document.getElementById("contentDiv").innerHTML;
+        var originalPage = document.body.innerHTML;
+        document.body.innerHTML = contentToPrint;
+        window.print();
+        document.body.innerHTML = originalPage;
+}
