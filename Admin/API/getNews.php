@@ -87,6 +87,10 @@ if ($result->num_rows > 0) {
      $category_id=$row["category_id"];
      $reporter=$row["reporter"];
      $image_url="API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      
      $is_active="Inactive";
      if($row["is_active"]==1)

@@ -164,6 +164,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      echo "<li><a onclick='GetNewsDetails($id)'><img src='$image_url' alt=''>".$row['headline']."</a></li>";
   }
 } 
@@ -204,6 +208,10 @@ if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -253,6 +261,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -290,6 +302,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -325,6 +341,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
     
     echo "<li>
@@ -368,6 +388,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -398,6 +422,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
             echo "<li>
             <div class='media wow fadeInDown'> <a onclick='GetNewsDetails($id)' class='media-left'> <img alt='' src='$image_url' width='72px' height='72px'> </a>
@@ -447,6 +475,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -477,6 +509,10 @@ if ($result->num_rows > 0) {
     
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
 
     echo "<li>
@@ -512,6 +548,10 @@ if ($result->num_rows > 0) {
     
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -541,6 +581,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
 
     echo "<li>

@@ -1,7 +1,7 @@
 function GetNewsDetails(id)
 {
         
-        var dataString='id='+id;
+       var dataString='id='+id;
        $.ajax({
         type: "POST",
         url: "Admin/API/getNewsDetails.php",
@@ -9,12 +9,16 @@ function GetNewsDetails(id)
         cache: false,
         success: function(html) {
            $('#contentDiv').html(html);   
+           //alert('Its Working');
            $('html, body').animate({
             scrollTop: $('#contentDiv').offset().top
-        }, 1000); // Adjust the duration as needed
-
+           }, 1000); // Adjust the duration as needed
+            //$('#sliderSection').hide();
+            
         }
         });
+        
+      
 }
 
 function PrintNews()

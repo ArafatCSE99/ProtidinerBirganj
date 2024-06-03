@@ -15,6 +15,10 @@ if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -29,12 +33,12 @@ if ($result->num_rows > 0) {
 ?>
 
 <!--<section id="contentSection"> -->
-    <div class="row" style="margin:0px 18px 0px 18px;"> 
-      <div class="col-lg-12 col-md-12 col-sm-12"> 
+   <!-- <div class="row" style="margin:0px 18px 0px 18px;"> -->
+      <div class="col-lg-12 col-md-12 col-sm-12" style="padding:30px !important; background-color:white;"> 
         <div class="left_content" style='height:1000px !important; '>
           <div class="single_page">
             <ol class="breadcrumb">
-              <li><a href="../index.html">Home</a></li>
+              <li><a href="index.php">Home</a></li>
               <li><a href="#"><?php echo $category_name; ?></a></li>
               <!--<li class="active">Mobile</li> -->
             </ol>
@@ -46,7 +50,7 @@ if ($result->num_rows > 0) {
             </div>
             <div class="social_link">
               <ul class="sociallink_nav">
-                <li><a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost/protidinerbirganj/news.php?id="+$id><i class="fa fa-facebook"></i></a></li>
+                <li><a href=""><i class="fa fa-facebook"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                 <li><a onclick="PrintNews()"><i class="fa fa-print"></i></a></li>
               </ul>
@@ -64,6 +68,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -84,5 +92,5 @@ echo "<li>
       
       </div>
       
-    </div>
+    <!--</div>-->
   <!--</section>-->

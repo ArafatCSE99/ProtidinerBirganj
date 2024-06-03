@@ -80,6 +80,23 @@ if ($result->num_rows > 0) {
     background-clip: text;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+  section{
+    position:  relative !important;
+    overflow: visible !important;
+  }
+
+@media only screen and (max-width: 600px) {
+    /* Styles for mobile */
+    section{
+    height : auto !important;
+  }
+  .single_iteam a > img{height:50%}
+}
+
+  .posflow{
+    position:  relative !important;
+    overflow:visible !important;
+  }
 </style>
 
 </head>
@@ -150,7 +167,7 @@ if ($result->num_rows > 0) {
     </nav>
   </section>
   <section id="newsSection">
-    <div class="row">
+    <div class="row posflow" >
       <div class="col-lg-12 col-md-12">
         <div class="latest_newsarea"> <span>Latest News</span>
           <ul id="ticker01" class="news_sticker">
@@ -163,6 +180,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      echo "<li><a onclick='GetNewsDetails($id)'><img src='$image_url' alt=''>".$row['headline']."</a></li>";
   }
 } 
@@ -190,9 +211,10 @@ if ($result->num_rows > 0) {
   
   <section id="contentDiv">
   </section>
-  <section id="sliderSection">
+  
+  <section id="sliderSection" >
     <div class="row" >
-      <div class="col-lg-8 col-md-8 col-sm-8" >
+      <div class="col-lg-8 col-md-8 col-sm-12" >
         <div class="slick_slider">
         
         <?php
@@ -204,6 +226,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -223,7 +249,7 @@ echo "<div class='single_iteam'> <a onclick='GetNewsDetails($id)'> <img src='$im
 
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-4">
+      <div class="col-lg-4 col-md-4 col-sm-12" >
         <div class="latest_post">
           <h2><span>Popular post</span></h2>
           <div class="latest_post_container">
@@ -231,7 +257,7 @@ echo "<div class='single_iteam'> <a onclick='GetNewsDetails($id)'> <img src='$im
             <ul class="latest_postnav">
              
 <?php
-$sql = "SELECT * FROM news where is_active=1 order by view_count desc limit 0,6";
+$sql = "SELECT * FROM news where is_active=1 order by view_count desc limit 0,4";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -239,6 +265,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
     
     echo "<li>
@@ -282,6 +312,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -312,6 +346,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
             echo "<li>
             <div class='media wow fadeInDown'> <a onclick='GetNewsDetails($id)' class='media-left'> <img alt='' src='$image_url' width='72px' height='72px'> </a>
@@ -361,6 +399,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -391,6 +433,10 @@ if ($result->num_rows > 0) {
     
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
 
     echo "<li>
@@ -426,6 +472,10 @@ if ($result->num_rows > 0) {
     
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
      $news=$row['news'];
      $short_news=substr($news, 0, 1000)." . . .";
@@ -455,6 +505,10 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
      $id=$row["id"];
      $image_url="Admin/API/".$row["image_url"];
+     if($row["Is_Old"]==1)
+     {
+       $image_url=$row["image_url"];
+     }
      $headline=$row['headline'];
 
     echo "<li>
@@ -530,6 +584,9 @@ if ($result->num_rows > 0) {
       </div>
     </div>
   </section>
+
+  
+
   <footer id="footer">
     <div class="footer_top">
       <div class="row">
